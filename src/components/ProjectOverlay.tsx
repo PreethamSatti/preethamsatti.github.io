@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 
 interface ProjectOverlayProps {
@@ -18,6 +18,30 @@ interface ProjectOverlayProps {
     isOpen: boolean;
     onClose: () => void;
 }
+
+const VideoPlayer = ({ src }: { src: string }) => {
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    useEffect(() => {
+        if (videoRef.current) {
+            videoRef.current.play().catch(error => {
+                console.log("Autoplay failed:", error);
+            });
+        }
+    }, []);
+
+    return (
+        <video
+            ref={videoRef}
+            src={src}
+            loop
+            muted
+            playsInline
+            controls={false}
+            className="w-auto h-auto max-w-full max-h-[70vh] object-contain block select-none"
+        />
+    );
+};
 
 const ProjectOverlay = ({ project, isOpen, onClose }: ProjectOverlayProps) => {
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
@@ -101,14 +125,7 @@ const ProjectOverlay = ({ project, isOpen, onClose }: ProjectOverlayProps) => {
                                         {galleryImages.map((media, index) => (
                                             <div className="flex-[0_0_100%] min-w-0 bg-black/5 flex items-center justify-center pointer-events-none" key={index}>
                                                 {media.endsWith('.mp4') ? (
-                                                    <video
-                                                        src={media}
-                                                        autoPlay
-                                                        loop
-                                                        muted
-                                                        playsInline
-                                                        className="w-auto h-auto max-w-full max-h-[70vh] object-contain block select-none"
-                                                    />
+                                                    <VideoPlayer src={media} />
                                                 ) : (
                                                     <img
                                                         src={media}
