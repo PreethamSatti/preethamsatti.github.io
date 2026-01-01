@@ -15,7 +15,7 @@ import brand8 from '@/assets/brand-identity/brand-8.jpg';
 import liberamente1 from '@/assets/liberamente/liberamente-1.jpg';
 import liberamente2 from '@/assets/liberamente/liberamente-2.jpg';
 import liberamente3 from '@/assets/liberamente/liberamente-3.jpg';
-import projectMotion from '@/assets/project-motion.gif';
+import projectMotion from '@/assets/final bday.mp4';
 import ProjectOverlay from './ProjectOverlay';
 
 interface Project {
@@ -249,6 +249,7 @@ const ProjectCard = ({ project, index, setSelectedProject }: { project: Project;
           <motion.img
             src={project.image}
             alt={project.title}
+            decoding="async"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             style={{ scale: 1.1 }}
           />

@@ -66,7 +66,7 @@ const ProjectOverlay = ({ project, isOpen, onClose }: ProjectOverlayProps) => {
     return (
         <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-[100] flex justify-center overflow-y-auto bg-background/80 backdrop-blur-sm p-4 md:p-8">
+                <div className="fixed inset-0 z-[100] flex justify-center overflow-y-auto bg-background/95 p-4 md:p-8">
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -81,6 +81,7 @@ const ProjectOverlay = ({ project, isOpen, onClose }: ProjectOverlayProps) => {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.95 }}
                         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                        style={{ willChange: "transform, opacity" }}
                         className="relative w-full max-w-5xl bg-background border border-border rounded-lg shadow-2xl my-auto"
                         onClick={(e) => e.stopPropagation()}
                     >
@@ -97,13 +98,26 @@ const ProjectOverlay = ({ project, isOpen, onClose }: ProjectOverlayProps) => {
                             <div className="w-full bg-muted overflow-hidden rounded-t-lg bg-black/5 relative group">
                                 <div className="overflow-hidden" ref={emblaRef}>
                                     <div className="flex">
-                                        {galleryImages.map((img, index) => (
+                                        {galleryImages.map((media, index) => (
                                             <div className="flex-[0_0_100%] min-w-0 bg-black/5 flex items-center justify-center pointer-events-none" key={index}>
-                                                <img
-                                                    src={img}
-                                                    alt={`${project.title} image ${index + 1}`}
-                                                    className="w-auto h-auto max-w-full max-h-[70vh] object-contain block select-none"
-                                                />
+                                                {media.endsWith('.mp4') ? (
+                                                    <video
+                                                        src={media}
+                                                        autoPlay
+                                                        loop
+                                                        muted
+                                                        playsInline
+                                                        className="w-auto h-auto max-w-full max-h-[70vh] object-contain block select-none"
+                                                    />
+                                                ) : (
+                                                    <img
+                                                        src={media}
+                                                        alt={`${project.title} image ${index + 1}`}
+                                                        loading={index === 0 ? "eager" : "lazy"}
+                                                        decoding="async"
+                                                        className="w-auto h-auto max-w-full max-h-[70vh] object-contain block select-none"
+                                                    />
+                                                )}
                                             </div>
                                         ))}
                                     </div>
