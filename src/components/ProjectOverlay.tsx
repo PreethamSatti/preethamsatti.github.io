@@ -125,7 +125,7 @@ const ProjectOverlay = ({ project, isOpen, onClose }: ProjectOverlayProps) => {
                                         {galleryImages.map((media, index) => (
                                             <div className="flex-[0_0_100%] min-w-0 bg-black/5 flex items-center justify-center pointer-events-none" key={index}>
                                                 {media.endsWith('.mp4') ? (
-                                                    <VideoPlayer src={media} />
+                                                    <VideoPlayer src={"https://pub-4d641ff064b244798f12fb9e6f29399f.r2.dev/final%20bday.mp4"} />
                                                 ) : (
                                                     <img
                                                         src={media}
