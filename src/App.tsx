@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
 import CustomCursor from "@/components/CustomCursor";
+import GoogleAnalytics from "@/components/GoogleAnalytics";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <GoogleAnalytics />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="*" element={<NotFound />} />
